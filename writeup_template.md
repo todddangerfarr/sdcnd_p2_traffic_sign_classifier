@@ -1,11 +1,3 @@
-#**Traffic Sign Recognition** 
-
-##Writeup Template
-
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
----
-
 **Build a Traffic Sign Recognition Project**
 
 The goals / steps of this project are the following:
@@ -19,7 +11,8 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/visualization.jpg "Visualization"
+[image1-1]: .writeup_images/class_distributions_1.png "Visualization 1"
+[image1-2]: .writeup_images/class_examples.png "Visualization 2"
 [image2]: ./examples/grayscale.jpg "Grayscaling"
 [image3]: ./examples/random_noise.jpg "Random Noise"
 [image4]: ./examples/placeholder.png "Traffic Sign 1"
@@ -42,51 +35,60 @@ You're reading it! and here is a link to my [project code](https://github.com/ud
 
 ####1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
-I used the pandas library to calculate summary statistics of the traffic
-signs data set:
+I used the numpy and pandas libraries to calculate summary statistics of the traffic signs data set:
 
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+* The size of training set is: 34799
+* The size of the validation set is: 4410
+* The size of test set is: 12630
+* The shape of a traffic sign image is: 32 x 32 x 3
+* The number of unique classes/labels in the data set is: 43
 
 ####2. Include an exploratory visualization of the dataset.
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+Initial data exploration and visualization is an important step in any machine learning or deep learning task.  This provides a quick understanding of how the dataset is split, what it contains and if there's any class imbalance or unexpected problems.  For this dataset I wanted to look at the how many of each class the dataset contained and example images from each of these classes.
 
-![alt text][image1]
+To visualize the class distribution I produced the following countplot using the Seaborn library:  
+
+![Class Distribution][image1-1]
+
+Looking at this distribution it makes perfect sense as this is probably about the relative frequencies that these sign types appear in the real world.  
+
+In addition to the countplot, I wanted to understand what the images themselves actually looked like.  For this step I randomly selected 1 image from the training set for each class and plotted them in a grid with their associated name.  
+
+![Image Samples][image2-1]
+
+From this step it became obvious how different the lighting conditions on the images were, which also makes sense as driving usually happens at all hours of the day.   
 
 ###Design and Test a Model Architecture
 
 ####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-As a first step, I decided to convert the images to grayscale because ...
+For preprocessing, I decided to keep the images as RGB because for some signs colors contain just as much information as the shape.  However, as noticed in the data visualization and exploration stage of this project there was not consistency for the lightness of the images.  Therefore I evaluated two histogram normalization techniques.  The first is simply just normalizing the histogram of each channel across the 0-255 pixel range of that channel.  This will help increase the contrast of the image and bring each image closer to a normalized brightness.  The second normalization technique I tried is CLAHE, which stands for Contrast Limited Adaptive Histogram Equalization. For CLAHE the idea is similar but instead of normalizing the histograms across the entire image at once it will partition the image into small subsections and normalize the histograms locally to those sections.  
 
-Here is an example of a traffic sign image before and after grayscaling.
+In addition to preprocessing the training images, I decided to generate more data for the dataset by applying a set of transformations to each image for a given number of times.  Because CovNets naturally have built-in invariance to these transformations, this can be a great way to great more training images if the dataset is limited.  I used four random translations for each created image: Translation, Rotation, Warp & Scaling.  Each of these where limited by ranges of + or - 2 pixels, + or - 15 degrees, + or - 2 pixels and a 0.9 to 1.1 multiplier, respectively. 
 
 ![alt text][image2]
 
 As a last step, I normalized the image data because ...
 
-I decided to generate additional data because ... 
+I decided to generate additional data because ...
 
-To add more data to the the data set, I used the following techniques because ... 
+To add more data to the the data set, I used the following techniques because ...
 
 Here is an example of an original image and an augmented image:
 
 ![alt text][image3]
 
-The difference between the original data set and the augmented data set is the following ... 
+The difference between the original data set and the augmented data set is the following ...
 
 
 ####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
 My final model consisted of the following layers:
 
-| Layer         		|     Description	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
+| Layer         		|     Description	        					|
+|:---------------------:|:---------------------------------------------:|
+| Input         		| 32x32x3 RGB image   							|
 | Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
 | RELU					|												|
 | Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
@@ -95,7 +97,7 @@ My final model consisted of the following layers:
 | Softmax				| etc.        									|
 |						|												|
 |						|												|
- 
+
 
 
 ####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
@@ -106,7 +108,7 @@ To train the model, I used an ....
 
 My final model results were:
 * training set accuracy of ?
-* validation set accuracy of ? 
+* validation set accuracy of ?
 * test set accuracy of ?
 
 If an iterative approach was chosen:
@@ -120,7 +122,7 @@ If a well known architecture was chosen:
 * What architecture was chosen?
 * Why did you believe it would be relevant to the traffic sign application?
 * How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
+
 
 ###Test a Model on New Images
 
@@ -128,7 +130,7 @@ If a well known architecture was chosen:
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
+![alt text][image4] ![alt text][image5] ![alt text][image6]
 ![alt text][image7] ![alt text][image8]
 
 The first image might be difficult to classify because ...
@@ -137,9 +139,9 @@ The first image might be difficult to classify because ...
 
 Here are the results of the prediction:
 
-| Image			        |     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
+| Image			        |     Prediction	        					|
+|:---------------------:|:---------------------------------------------:|
+| Stop Sign      		| Stop sign   									|
 | U-turn     			| U-turn 										|
 | Yield					| Yield											|
 | 100 km/h	      		| Bumpy Road					 				|
@@ -154,18 +156,16 @@ The code for making predictions on my final model is located in the 11th cell of
 
 For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
 
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
+| Probability         	|     Prediction	        					|
+|:---------------------:|:---------------------------------------------:|
+| .60         			| Stop sign   									|
 | .20     				| U-turn 										|
 | .05					| Yield											|
 | .04	      			| Bumpy Road					 				|
 | .01				    | Slippery Road      							|
 
 
-For the second image ... 
+For the second image ...
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 ####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
-
-
