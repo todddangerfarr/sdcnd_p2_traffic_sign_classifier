@@ -1,2 +1,2 @@
-model_checkpoint_path: "lenet_with_dropout"
-all_model_checkpoint_paths: "lenet_with_dropout"
+model_checkpoint_path: "lenet_with_dropout_gray"
+all_model_checkpoint_paths: "lenet_with_dropout_gray"
