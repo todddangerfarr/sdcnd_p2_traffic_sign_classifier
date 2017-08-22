@@ -11,11 +11,11 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1-1]: .writeup_images/class_distributions_1.png "Initial Class Distribution"
-[image1-2]: .writeup_images/class_examples.png "Visualization 2"
+[image1-1]: ./writeup_images/class_distributions_1.png "Initial Class Distribution"
+[image1-2]: ./writeup_images/class_examples.png "Visualization 2"
 [image2-1]: ./writeup_images/data_generation.png "Data Generation"
 [image2-2]: ./writeup_images/generated_data.png "Generated Data"
-[image2-3]: .writeup_images/class_distributions_2.png "Class Distribution Increased"
+[image2-3]: ./writeup_images/class_distributions_2.png "Class Distribution Increased"
 [LeNet]: ./lenet.png "LeNet Architecture"
 [Deep LeNet]: ./deep_lenet.png "Deep LeNet Architecture"
 [image4-1]: ./writeup_images/mod_leNet_Gray_DO_0.6.png "Accuracy vs Loss"
@@ -24,18 +24,18 @@ The goals / steps of this project are the following:
 
 
 ## Rubric Points
-###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
+### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
 
 ---
-###Writeup / README
+### Writeup / README
 
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
+#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
 You've come to the right place... Oh, and here is a link to my [project code.](https://github.com/todddangerfarr/sdcnd_p2_traffic_sign_classifier/blob/master/Traffic_Sign_Classifier.ipynb)
 
-###Data Set Summary & Exploration
+### Data Set Summary & Exploration
 
-####1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
+#### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
 I used the numpy and pandas libraries to calculate summary statistics of the traffic signs data set:
 
@@ -45,7 +45,7 @@ I used the numpy and pandas libraries to calculate summary statistics of the tra
 * The shape of a traffic sign image is: 32 x 32 x 3
 * The number of unique classes/labels in the data set is: 43
 
-####2. Include an exploratory visualization of the dataset.
+#### 2. Include an exploratory visualization of the dataset.
 
 Initial data exploration and visualization is an important step in any data science, machine or deep learning task.  This provides a quick understanding of how the dataset is split, what it contains and if there's any class imbalance or unexpected problems.  For this dataset I wanted to look at the how many of each class the dataset contained and example images from each of these classes.
 
@@ -61,9 +61,9 @@ In addition to the countplot, I wanted to understand what the images themselves 
 
 From this process it became obvious how different the lighting conditions and quality of each image was.  This is also intuitive as driving usually happens at all hours of the day (and night).   
 
-###Design and Test a Model Architecture
+### Design and Test a Model Architecture
 
-####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
+#### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
 For preprocessing, I originally decided to keep the images as RGB because for some signs colors contain just as much information about it as the shape does.  However, this proved to be counter productive simply in terms of training time and ultimately in terms of model performance.  It was only after I applied a grayscale preprocessing step that my model started to really improve.  
 
@@ -88,7 +88,7 @@ I then used these preprocessors and augmentation techniques to increase the over
 
 ![Increased Class Distribution][image2-3]
 
-####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+#### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
 I started with a baseline of the LeNet Architecture, which is famous for classifying handwritten digits, on the unprocessed RGB color images.  
 
@@ -111,7 +111,7 @@ I started with a baseline of the LeNet Architecture, which is famous for classif
 
 From this baseline I added all my preprocessing steps, generated images, modified the LeNet to have deeper filter depths on the convolutions and added randomized dropout and regularization to keep the weights in check.  
 
-![Deep LeNet w/Dropout Architecture][Deep_LeNet]
+![Deep LeNet w/Dropout Architecture][Deep LeNet]
 
 | Layer         		|     Description	        					          |
 |:-----------------:|:-------------------------------------------:|
@@ -131,7 +131,7 @@ From this baseline I added all my preprocessing steps, generated images, modifie
 | Softmax           |                             						    |
 
 
-####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+#### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
 As previously mentioned the model was trained using the modified LeNet Architecture, what I've referred to as Deep LeNet with dropout of 0.6 on the fully connected layers.  I used an Adam Optimizer to minimize the loss function with L2 regularization applied to keep the weights in check.  L2 Regularization help penalize large weight which can directly correlate to model overfitting.  It is important to note that L2 Regularization also introduces another hyperparameter β.  The table below outlines the main hyperparameters and the values I used to train the model.
 
@@ -144,7 +144,7 @@ As previously mentioned the model was trained using the modified LeNet Architect
 | β (beta)      	  | 0.001 (L2 regularization penalty)           |
 | Batch Size        | 128   (limited by memory)                   |
 
-####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 The final Deep LeNet model results were:
 * training set accuracy of 98.5%
@@ -159,9 +159,9 @@ Unfortunately I was limited significantly by the hardware that was available to 
 
 ![Accuracy vs Loss][image4-1]
 
-###Test a Model on New Images
+### Test a Model on New Images
 
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+#### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
 I selected 8 additional traffic sign images from the web.  The originals as well as processed version of these images can be seen below:
 
@@ -169,7 +169,7 @@ I selected 8 additional traffic sign images from the web.  The originals as well
 
 Most of these images were pretty straight forward and had already been sized to 32x32 pixels.  However I purposefully picked a few additional large images of which I had to resize before preprocessing them.  I figured these would be the most difficult to classify as they may skew or lose information during the resizing operation.  
 
-####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+#### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
 Of the 8 signs from the web 2 where incorrectly classified resulting in a 75% test accuracy.
 
@@ -184,7 +184,7 @@ Of the 8 signs from the web 2 where incorrectly classified resulting in a 75% te
 | Slippery Road      		| Slippery Road  			       				| O     |
 | Stop              		| Stop          			       				| O     |
 
-####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+#### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
 Additionally beyond predictions alone I also included the top 5 softmax probabilities for each of the images.  These probabilities can be visualized in the graphs below.
 
