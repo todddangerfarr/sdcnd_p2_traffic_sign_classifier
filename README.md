@@ -144,7 +144,6 @@ As previously mentioned the model was trained using the modified LeNet Architect
 | β (beta)      	  | 0.001 (L2 regularization penalty)           |
 | Batch Size        | 128   (limited by memory)                   |
 
-
 ####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 The final Deep LeNet model results were:
@@ -174,16 +173,16 @@ Most of these images were pretty straight forward and had already been sized to 
 
 Of the 8 signs from the web 2 where incorrectly classified resulting in a 75% test accuracy.
 
-| Image			            |     Prediction	        					| T/F   |
+| Image			            |     Prediction	        					| PASS  |
 |:---------------------:|:---------------------------------:|:-----:|
-| Bumpy Road        		| Bicycles Crossing  							  | T     |
-| General Caution   		| General Caution  									| F     |
-| No Passing  					| No Passing    										| T     |
-| Right of Way      		| Right of Way        			 				| T     |
-| Road Work         		| Bumpy Road    			       				| F     |
-| Roundabout        		| Roundabout          			 				| T     |
-| Slippery Road      		| Slippery Road  			       				| T     |
-| Stop              		| Stop          			       				| T     |
+| Bumpy Road        		| Bicycles Crossing  							  | O     |
+| General Caution   		| General Caution  									| X     |
+| No Passing  					| No Passing    										| O     |
+| Right of Way      		| Right of Way        			 				| O     |
+| Road Work         		| Bumpy Road    			       				| X     |
+| Roundabout        		| Roundabout          			 				| O     |
+| Slippery Road      		| Slippery Road  			       				| O     |
+| Stop              		| Stop          			       				| O     |
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
@@ -193,9 +192,9 @@ Additionally beyond predictions alone I also included the top 5 softmax probabil
 
 From this visualization it becomes clear that the model is doing a very good job of classifying the images. Although it missed 2 out of the 8 images, the classes that were predicted are very similar in shape and content.  Also, the second most likely sign guesses for both of these images are the correct classes.
 
-Overall, I'm really happy with my model and the fact that it is simple enough to be trained fairly quickly on a portable CPU while traveling overseas in remote factories!  I'd like to revisit this project in the future and look at more complex models as well as trying to better balance the classes to see if that would help with some of the incorrect predictions.  It was bumpy road and bicycles crossing, two of the less represented classes, that seemed to show up as incorrect predictions or cause problems.  With such small forward pass batches (again another hardware limitation) the model might not have had enough information in order to best learn how to distinguish between them. 
+Overall, I'm really happy with my model and the fact that it is simple enough to be trained fairly quickly on a portable CPU while traveling overseas in remote factories!  I'd like to revisit this project in the future and look at more complex models as well as trying to better balance the classes to see if that would help with some of the incorrect predictions.  It was bumpy road and bicycles crossing, two of the less represented classes, that seemed to show up as incorrect predictions or cause problems.  With such small forward pass batches (again another hardware limitation) the model might not have had enough information in order to best learn how to distinguish between them.
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 ####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
 
-Did not finish this seciton.  Will come back to it later...
+Did not finish this section.  Will come back to it later...
