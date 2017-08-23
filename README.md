@@ -1,4 +1,4 @@
-**Build a Traffic Sign Recognition Project**
+# Build a Traffic Sign Recognition Project
 
 The goals / steps of this project are the following:
 * Load the data set (see below for links to the project data set)
@@ -151,11 +151,13 @@ The final Deep LeNet model results were:
 * validation set accuracy of 97.8%
 * test set accuracy of 97.0%
 
-My approach was an iterative one.  I figured this would be the best way to really understand some of the concepts like dropout, L2 Regularization and how changing layer depths can effect the performance of the model.  Therefore, rather than hunting for a different model architecture, I started with the LeNet Architecture and slowly built a slightly more complex model that leveraged some other deep learning tricks to help improve performance.
+My approach was an iterative one.  I figured this would be the best way to really understand some of the key lecture concepts like dropout, L2 Regularization and how changing individual layer depths can effect the performance of the model.  Therefore, rather than spending time hunting for a completely different model, I first started with a baseline of the barebones LeNet.
 
-Although a majority of the work was spent preprocessing the data and building additional augmented images for the training set, I did spend some time on the backend as well.  The first improvements were focused on regularization techniques.  I started by applying dropout on the fully connected layers.  Dropout forces the model to learn different and redundant representations of the activations because it can never rely on any of them being active during each pass.  I started with keep_prob of 0.5, meaning that half the activations were randomly destroyed between the fully connected layers.  However, I later increased this value to 0.6 which helped the learning rate by keeping more activations per iterations.  The second regularization technique I applied was an L2 regularization to the loss function which penalizes large, overfit weights.  I used the de facto value of 0.001 and it worked well in this regard.  However, despite regularization the biggest contributor to the model improvement was to increase the number of filters for deeper layers after each of the convolutions.  I empirically tested a few different values but ultimately settled on the aforementioned architecture.
+The main problem with the initial LeNet architecture is that it tended to under fit the data.  It just couldn't learn enough features in order to correctly classify the images.  This actually makes sense since LeNet was designed to classify handwritten characters which require a lot less abstraction than traffic signs to understand their meaning.  It was this intuition that led me to increase the filter depth in each convolution layer.  I empirically tested a few different values and ultimately settled on the aforementioned architecture with a first convolution depth of 16 and a second depth of 64.
 
-Unfortunately I was limited significantly by the hardware that was available to me.  I chose to only run 20 EPOCHS with a higher learning rate (η) of 0.001 as the training time was just too long with a larger and smaller number, respectively.  Examining the Accuracy vs Loss curves, I feel this model could have continued to improve given more iterations and maybe a smaller learning rate to further prevent over shooting when attempting to find a global minimum.
+It's important to note that with more features and deeper models the risk of over fitting increases.  This is why in addition to deepening the convolutions I evaluated and implemented two regularization techniques. The first of these was applying dropout on the fully connected layers.  Dropout forces the model to learn different and redundant representations of the activations because it can never rely on any of them being active during each pass.  I started with keep_prob of 0.5, meaning that half the activations were randomly destroyed between the fully connected layers.  However, I later increased this value to 0.6 which helped quicken the learning rate by keeping more activations per iteration.  The second regularization technique I applied was an L2 regularization to the loss function which penalizes large, overfit weights.  I used the de facto value of 0.001 and it worked well in this regard.  
+
+Finally, because I was limited significantly by the hardware that was available to me.  I chose to only run 20 EPOCHS which required a higher learning rate (η) of 0.001 and for me to keep RELU activations which generally learn quicker than some of the others like tan_h or sigmoid.  Examining the Accuracy vs Loss curves, I feel this model probably could have continued to improve given more iterations and maybe a smaller learning rate to further smooth the curves and prevent over shooting when attempting to find a global minimum.
 
 ![Accuracy vs Loss][image4-1]
 
@@ -171,7 +173,7 @@ Most of these images were pretty straight forward and had already been sized to 
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
-Of the 8 signs from the web 2 where incorrectly classified resulting in a 75% test accuracy.
+Of the 8 signs from the web 2 where incorrectly classified resulting in a 75% test accuracy.  When compared to the test set accuracy of 97% this gives the indication that the model is overfitting the data as it's not able to generalize the learned features to new images.
 
 | Image			            |     Prediction	        					| PASS  |
 |:---------------------:|:---------------------------------:|:-----:|
@@ -190,11 +192,11 @@ Additionally beyond predictions alone I also included the top 5 softmax probabil
 
 ![Softmax Predictions][image5-2]
 
-From this visualization it becomes clear that the model is doing a very good job of classifying the images. Although it missed 2 out of the 8 images, the classes that were predicted are very similar in shape and content.  Also, the second most likely sign guesses for both of these images are the correct classes.
+What I like about this visualization is it becomes clear that the model is actually doing a pretty good job of classifying the images. Although it missed 2 out of the 8 images, this visualization shows the classes that were incorrectly predicted are at the very least quite similar in shape and content.  Additionally, the second most likely sign guesses for both of these images are the correct classes.  In this case maybe my model just wasn't deep enough to learn the associated features or information to properly distinguish similar classes.
 
-Overall, I'm really happy with my model and the fact that it is simple enough to be trained fairly quickly on a portable CPU while traveling overseas in remote factories!  I'd like to revisit this project in the future and look at more complex models as well as trying to better balance the classes to see if that would help with some of the incorrect predictions.  It was bumpy road and bicycles crossing, two of the less represented classes, that seemed to show up as incorrect predictions or cause problems.  With such small forward pass batches (again another hardware limitation) the model might not have had enough information in order to best learn how to distinguish between them.
+Overall, I'm happy with the final model and the fact that it is simple enough to be trained fairly quickly on a portable CPU.  I'd like to revisit this project in the future and look at more complex models as well as trying to better balance the classes to see if that would help with some of the incorrect predictions.  It was bumpy road and bicycles crossing, two of the less represented classes, that seemed to show up as incorrect predictions or cause most problems for the web image tests.  Also, with such small forward pass batches (again another hardware limitation) the model might not have had enough information or seen the less represented classes enough times in order to best learn how to distinguish between them.
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+#### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
 
 Did not finish this section.  Will come back to it later...
