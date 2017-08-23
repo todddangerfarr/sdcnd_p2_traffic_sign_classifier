@@ -57,7 +57,7 @@ Looking at this distribution it makes perfect sense as this is probably about th
 
 In addition to the countplot, I wanted to understand what the images themselves actually looked like.  For this step I randomly selected 1 image from the training set for each class and plotted them in a grid with their associated names.  
 
-![Image Samples][image2-1]
+![Image Samples][image1-2]
 
 From this process it became obvious how different the lighting conditions and quality of each image was.  This is also intuitive as driving usually happens at all hours of the day (and night).   
 
@@ -82,9 +82,13 @@ Below is a quick verification of these created functions as well as a comparison
 
 ![Preprocessing Visualization & Data Generation][image2-1]
 
-From these images you can see each of the various preprocessing and generation functions applied to a set of three images pulled from the training data set.  While the color render is deeper on the normalized histogram image I decided to use the CLAHE method as this boosts contrast and image clarity while keeping an image color that more closely matches the original image.  
+From these images you can see each of the various preprocessing and generation functions applied to a set of three images pulled from the training data set.  While the color render is deeper on the normalized histogram image I decided to use the CLAHE method as this boosts contrast and image clarity while keeping an image color that more closely matches the original image.
 
-I then used these preprocessors and augmentation techniques to increase the overall size of the training set.  Iterating through the training set I added two augmented images for each image increasing the total training images to 104397.  However, I purposefully left the class imbalance as I felt that it was a good representation of the sign distribution that would be seen in a real world scenario.  My intuition here is that I'd actually want a model to always predict slightly biased towards signs that are more frequently occurring.  The updated class counts can be seen below:
+I then used these preprocessors and augmentation techniques to increase the overall size of the training set.  Iterating through the training set I added two augmented images for each image increasing the total training images to 104397. Examples of these additional generated images can be seen below:
+
+![Generated Data][image2-2]  
+
+I purposefully left the original class imbalance intact as I felt that it was a good representation of the sign distribution that would be seen in a real world scenario.  My intuition here is that I'd actually want a model to always predict slightly biased towards signs that are naturally more frequently occurring.  The updated class counts and distribution can be seen 
 
 ![Increased Class Distribution][image2-3]
 
